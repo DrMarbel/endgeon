@@ -29,7 +29,8 @@ public class eMove : MonoBehaviour
     {
         waitTime = Time.time + Random.Range(1f, 3f);
         collisionMap = GameObject.Find("Collideables").GetComponent<Tilemap>();
-        InvokeRepeating("Walk", waitTime, .2f); //inbuilt solution to avoid using update
+        renderer = this.gameObject.GetComponent<SpriteRenderer>();
+        InvokeRepeating("Walk", waitTime, waitTime); //inbuilt solution to avoid using update
     }
 
     private void Update()
@@ -37,7 +38,6 @@ public class eMove : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Walk()
     {
     if(moving)
@@ -52,13 +52,13 @@ public class eMove : MonoBehaviour
       case 1:
         {
           CheckForCollisionTile(movRight);
+          renderer.flipX = true;
           break;
         }
         case 2:
         {
-                    // this.gameObject.spriteRenderer.flipX = true;
-                    this.gameObject.transform.rotateY = -180;
           CheckForCollisionTile(movLeft);
+          renderer.flipX = false;
           break;
         }
         case 3:
